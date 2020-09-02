@@ -34,13 +34,11 @@ void setup() {
   Serial.begin (9600);
   pinMode (7, OUTPUT);
   digitalWrite (7, HIGH);
-  pinMode (echoPin, INPUT);
-  pinMode (trigPin, OUTPUT);
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  //if (ET.receiveData()){
+  if (ET.receiveData()){
     GearR = mydata.GearS;
     AccRmin = -13.3333 * (GearR) + 90;
     AccRmax = 13.3333 * (GearR) + 90;
@@ -52,26 +50,9 @@ void loop() {
     myServo.write(DirR);
     myServo2.write(AccR);
 
-    
-    digitalWrite(trigPin, LOW);
-    delayMicroseconds (2);
-    digitalWrite (trigPin, HIGH);
-    delayMicroseconds (10);
-    digitalWrite (trigPin, LOW);
-    duration = pulseIn (echoPin, HIGH);
-    Serial.println (distance);
-    distance = duration/58.2;
-    
-    if (distance <= 200){
-      if (distance > 0) {
-        myServo2.write(50);
-        delay (57);
-      }
-      }
-    delay (57);
-  //}
-//  else{
-//    digitalWrite (7, LOW);
-//    myServo2.write(90);
-//  }
+  }  
+  else{
+    digitalWrite (7, LOW);
+    myServo2.write(90);
+  }
 }
